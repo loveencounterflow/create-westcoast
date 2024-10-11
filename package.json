@@ -9,8 +9,5 @@
   "bin": "./bin/create-westcoast.js",
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "guy": "^13.7.2"
-  }
+  "license": "ISC"
 }
