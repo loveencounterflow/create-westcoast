@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "",
+  "sourceRoot": "",
+  "sources": [
+    "../src/main.coffee"
+  ],
+  "names": [],
+  "mappings": "AACA;EAAA;EAEA,OAAO,CAAC,GAAR,CAAY,CAAA,UAAA,CAAA,CAAa,UAAb,CAAA,CAAZ;AAFA",
+  "sourcesContent": [
+    "\n'use strict'\n\nconsole.log \"helo from #{__filename}\"\n\n\n"
+  ]
+}
