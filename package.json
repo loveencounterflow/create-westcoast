@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "create-westcoast": "bin/create-westcoast.js",
+    "create-westcoast": "bin/create-westcoast.js"
   },
   "keywords": [],
   "author": "",
