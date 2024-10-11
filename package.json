@@ -2,7 +2,7 @@
   "name": "create-westcoast",
   "version": "0.0.6",
   "description": "",
-  "main": "index.js",
+  "main": "lib/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
