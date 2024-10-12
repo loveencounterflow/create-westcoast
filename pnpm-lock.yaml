@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      guy:
+        specifier: ^14.0.0
+        version: 14.0.0
       koa:
         specifier: ^2.15.3
         version: 2.15.3
@@ -79,6 +82,9 @@ packages:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
+  guy@14.0.0:
+    resolution: {integrity: sha512-3okG3YSPspYC4/aNqRgZsHDoKxwx9JhuxwYoVL6K8m5OzY7kTHbIenMi/hE8MOzsDeiX9GeTgToYl+NVaNTkbg==}
+
   has-symbols@1.0.3:
     resolution: {integrity: sha512-l3LCuF6MgDNwTDKkdYGEihYjt5pRPbEg46rtlmnSPlUbgmB8LOIrKJbYYFBSbnPaJexMKtiPO8hmeRjRz2Td+A==}
     engines: {node: '>= 0.4'}
@@ -97,6 +103,9 @@ packages:
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
+
+  intertype-legacy@7.7.1:
+    resolution: {integrity: sha512-Bj3k9bCu8vA6JLIvnCrJXOdkecgY5wtCmORclJ87uq22N53swREHT5bezSeK5TwcxgSJEDg2wEfcn4kNr9Qv8A==}
 
   is-generator-function@1.0.10:
     resolution: {integrity: sha512-jsEjy9l3yiXEQ+PsXdmBwEPcOxaXWLspKdplFUVI9vq1iZgIekeC0L167qeu86czQaxed3q/Uzuw0swL0irL8A==}
@@ -131,6 +140,9 @@ packages:
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+  multimix@5.0.0:
+    resolution: {integrity: sha512-N9cdGSDDD7kxOV7R6e4iZqsHTZ4F4iiSDWqMcVqx4gEH6HBtRXav39Gj3fgT1YqvBcwPCQuf0Oa5R2cDaLWK8A==}
 
   negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
@@ -224,6 +236,10 @@ snapshots:
 
   fresh@0.5.2: {}
 
+  guy@14.0.0:
+    dependencies:
+      intertype-legacy: 7.7.1
+
   has-symbols@1.0.3: {}
 
   has-tostringtag@1.0.2:
@@ -244,6 +260,10 @@ snapshots:
       toidentifier: 1.0.1
 
   inherits@2.0.4: {}
+
+  intertype-legacy@7.7.1:
+    dependencies:
+      multimix: 5.0.0
 
   is-generator-function@1.0.10:
     dependencies:
@@ -297,6 +317,8 @@ snapshots:
       mime-db: 1.52.0
 
   ms@2.1.3: {}
+
+  multimix@5.0.0: {}
 
   negotiator@0.6.3: {}
 
