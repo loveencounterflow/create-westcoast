@@ -4,6 +4,7 @@
   "description": "create a westcoast application",
   "main": "lib/main.js",
   "files": [
+    "data/*",
     "src/*",
     "public/*"
   ],
