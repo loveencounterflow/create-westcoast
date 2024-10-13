@@ -19,6 +19,8 @@ GUY                       = require 'guy'
   reverse
   log     }               = GUY.trm
 #...........................................................................................................
+em                        = ( P... ) -> GUY.trm.reverse GUY.trm.bold P...
+#...........................................................................................................
 FS                        = require 'node:fs'
 PATH                      = require 'node:path'
 
@@ -48,6 +50,11 @@ urge 'Ω___1', "helo from create-westcoast v#{version}"
 urge 'Ω___2', "cfg.source.path.base:    #{cfg.source.path.base}"
 urge 'Ω___3', "cfg.source.path.public:  #{cfg.source.path.public}"
 urge 'Ω___4', "cfg.target.path.base:    #{cfg.target.path.base}"
-info 'Ω___5', FS.cpSync cfg.source.path.public, cfg.target.path.public, cfg.cp
+try
+  FS.cpSync cfg.source.path.public, cfg.target.path.public, cfg.cp
+catch error
+  throw error unless error.code is 'ERR_FS_CP_EEXIST'
+  warn 'Ω___5', em error.message
+
 
 
