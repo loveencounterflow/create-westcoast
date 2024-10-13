@@ -20,6 +20,8 @@ GUY                       = require 'guy'
   log     }               = GUY.trm
 
 #===========================================================================================================
-urge 'Ω___1', "helo from create-westcoast"
+{ version } = require '../package.json'
+urge 'Ω___1', "helo from create-westcoast v#{version}"
+urge 'Ω___2', "CWD is #{process.cwd()}"
 
 
