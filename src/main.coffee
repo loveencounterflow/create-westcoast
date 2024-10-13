@@ -55,6 +55,6 @@ try
 catch error
   throw error unless error.code is 'ERR_FS_CP_EEXIST'
   warn 'Ω___5', em error.message
-
+  process.exit 111
 
 
