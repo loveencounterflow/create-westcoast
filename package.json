@@ -4,7 +4,9 @@
   "description": "create a westcoast application",
   "main": "lib/main.js",
   "files": [
-    "public/*"
+    "src/*",
+    "public/sample.js",
+    "public/index.html"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
