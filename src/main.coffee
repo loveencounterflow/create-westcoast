@@ -36,6 +36,7 @@ cfg =
   target:
     path:
       base:   target_base
+      public: PATH.resolve target_base, 'public'
   cp:
     errorOnExist:       true
     dereference:        true
@@ -47,6 +48,6 @@ urge 'Ω___1', "helo from create-westcoast v#{version}"
 urge 'Ω___2', "cfg.source.path.base:    #{cfg.source.path.base}"
 urge 'Ω___3', "cfg.source.path.public:  #{cfg.source.path.public}"
 urge 'Ω___4', "cfg.target.path.base:    #{cfg.target.path.base}"
-info 'Ω___5', FS.cpSync cfg.source.path.public, cfg.target.path.base, cfg.cp
+info 'Ω___5', FS.cpSync cfg.source.path.public, cfg.target.path.public, cfg.cp
 
 
