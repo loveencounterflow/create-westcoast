@@ -54,17 +54,30 @@ cfg = do =>
   return R
 
 #===========================================================================================================
-create = ->
-  urge 'Ω___1', "helo from create-westcoast v#{version}"
-  urge 'Ω___2', "cfg.source.path.base:    #{cfg.source.path.base}"
-  urge 'Ω___3', "cfg.source.path.public:  #{cfg.source.path.public}"
-  urge 'Ω___4', "cfg.target.path.base:    #{cfg.target.path.base}"
+copy = ( source, target ) ->
+  info 'Ω___1', "#{source} -> #{target}"
   try
-    FS.cpSync cfg.source.path.public, cfg.target.path.public, cfg.cp
+    FS.cpSync source, target, cfg.cp
   catch error
     throw error unless error.code is 'ERR_FS_CP_EEXIST'
-    warn 'Ω___5', em error.message
-    process.exit 111
+    warn 'Ω___2', em error.message
+    # process.exit 111
+  return null
+
+#===========================================================================================================
+create = ->
+  urge 'Ω___3', "helo from create-westcoast v#{version}"
+  urge 'Ω___4', "cfg.source.path.base:    #{cfg.source.path.base}"
+  urge 'Ω___5', "cfg.source.path.public:  #{cfg.source.path.public}"
+  urge 'Ω___6', "cfg.target.path.base:    #{cfg.target.path.base}"
+  #.........................................................................................................
+  copy cfg.source.path.public, cfg.target.path.public
+  #.........................................................................................................
+  for { source, target, } in require cfg.data.linklist.path
+    source = PATH.resolve cfg.source.path.base, source
+    target = PATH.resolve cfg.target.path.base, target
+    copy source, target
+  #.........................................................................................................
   return null
 
 
