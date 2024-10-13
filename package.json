@@ -5,10 +5,10 @@
   "main": "lib/main.js",
   "files": [
     "src/*",
-    "public/sample.js",
-    "public/index.html"
+    "public/*"
   ],
   "scripts": {
+    "prepare": "lib/prepare.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "./bin/create-westcoast.js",
