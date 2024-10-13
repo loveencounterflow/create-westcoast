@@ -30,6 +30,7 @@ PATH                      = require 'node:path'
 source_base = PATH.resolve __dirname, '../'
 target_base = process.cwd()
 
+#===========================================================================================================
 cfg =
   source:
     path:
@@ -46,15 +47,27 @@ cfg =
     preserveTimestamps: true
     recursive:          true
 
-urge 'Ω___1', "helo from create-westcoast v#{version}"
-urge 'Ω___2', "cfg.source.path.base:    #{cfg.source.path.base}"
-urge 'Ω___3', "cfg.source.path.public:  #{cfg.source.path.public}"
-urge 'Ω___4', "cfg.target.path.base:    #{cfg.target.path.base}"
-try
-  FS.cpSync cfg.source.path.public, cfg.target.path.public, cfg.cp
-catch error
-  throw error unless error.code is 'ERR_FS_CP_EEXIST'
-  warn 'Ω___5', em error.message
-  process.exit 111
+
+#===========================================================================================================
+create = ->
+  urge 'Ω___1', "helo from create-westcoast v#{version}"
+  urge 'Ω___2', "cfg.source.path.base:    #{cfg.source.path.base}"
+  urge 'Ω___3', "cfg.source.path.public:  #{cfg.source.path.public}"
+  urge 'Ω___4', "cfg.target.path.base:    #{cfg.target.path.base}"
+  try
+    FS.cpSync cfg.source.path.public, cfg.target.path.public, cfg.cp
+  catch error
+    throw error unless error.code is 'ERR_FS_CP_EEXIST'
+    warn 'Ω___5', em error.message
+    process.exit 111
+  return null
+
+
+#===========================================================================================================
+module.exports = { cfg, create, }
+
+#===========================================================================================================
+if module is require.main then do => create()
+
 
 

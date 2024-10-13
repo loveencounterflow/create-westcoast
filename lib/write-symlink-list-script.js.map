@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "",
+  "sourceRoot": "",
+  "sources": [
+    "../src/write-symlink-list-script.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAmB;EAAA;EAGnB;AAHmB,MAAA,EAAA,EAAA,GAAA,EAAA,KAAA,EAAA,GAAA,EAAA,KAAA,EAAA,IAAA,EAAA,IAAA,EAAA,IAAA,EAAA,IAAA,EAAA,OAAA,EAAA,GAAA,EAAA,KAAA,EAAA,MAAA,EAAA,OAAA,EAAA,GAAA,EAAA,IAAA,EAAA,IAAA,EAAA,OAAA,EAAA,kBAAA;;;EAMnB,GAAA,GAA4B,OAAA,CAAQ,KAAR;;EAC5B,CAAA,CAAE,KAAF,EACE,KADF,EAEE,IAFF,EAGE,IAHF,EAIE,KAJF,EAKE,MALF,EAME,IANF,EAOE,IAPF,EAQE,OARF,CAAA,GAQ4B,GAAG,CAAC,GAAG,CAAC,WAAR,CAAoB,0BAApB,CAR5B;;EASA,CAAA,CAAE,GAAF,EACE,OADF,EAEE,IAFF,EAGE,OAHF,EAIE,GAJF,CAAA,GAI4B,GAAG,CAAC,GAJhC,EAhBmB;;;EAsBnB,EAAA,GAA4B,OAAA,CAAQ,SAAR,EAtBT;;;EAwBnB,IAAA,GAA4B,OAAA,CAAQ,MAAR;;EAC5B,CAAA,CAAE,GAAF,CAAA,GAA4B,OAAA,CAAQ,IAAR,CAA5B,EAzBmB;;;;;;EAiCnB,kBAAA,GAAqB,QAAA,CAAA,CAAA;IACnB,IAAA,CAAK,OAAL,EAAc,UAAd;IACA,IAAA,CAAK,OAAL,EAAc,GAAd;IACA,IAAA,CAAK,OAAL,EAAc,GAAG,CAAC,MAAM,CAAC,IAAI,CAAC,MAA9B;IACA,IAAA,CAAK,OAAL,EAAc,IAAI,CAAC,IAAnB;IACA,IAAA,CAAK,OAAL,EAAc,IAAI,CAAC,IAAL,CAAU,GAAG,CAAC,MAAM,CAAC,IAAI,CAAC,MAA1B,CAAd;AACA,WAAO;EANY,EAjCF;;;EA2CnB,MAAM,CAAC,OAAP,GAAiB,CAAE,kBAAF;AA3CE",
+  "sourcesContent": [
+    "#!/usr/bin/env node\n\n\n'use strict'\n\n#===========================================================================================================\nGUY                       = require 'guy'\n{ alert\n  debug\n  help\n  info\n  plain\n  praise\n  urge\n  warn\n  whisper }               = GUY.trm.get_loggers 'create-westcoast/prepare'\n{ rpr\n  inspect\n  echo\n  reverse\n  log     }               = GUY.trm\n#...........................................................................................................\nFS                        = require 'node:fs'\n# PATH                        = require 'node:fs'\nglob                      = require 'glob'\n{ cfg }                   = require '..'\n\n\n#===========================================================================================================\n# FS.symlinkSync\n\n\n#===========================================================================================================\nwrite_symlink_list = ->\n  help 'Ω___1', __filename\n  help 'Ω___2', cfg\n  help 'Ω___3', cfg.source.path.public\n  help 'Ω___4', glob.sync\n  help 'Ω___5', glob.sync cfg.source.path.public\n  return null\n\n\n#===========================================================================================================\nmodule.exports = { write_symlink_list, }\n"
+  ]
+}
