@@ -31,22 +31,27 @@ source_base = PATH.resolve __dirname, '../'
 target_base = process.cwd()
 
 #===========================================================================================================
-cfg =
-  source:
-    path:
-      base:   source_base
-      public: PATH.resolve source_base, 'public'
-  target:
-    path:
-      base:   target_base
-      public: PATH.resolve target_base, 'public'
-  cp:
-    errorOnExist:       true
-    dereference:        true
-    force:              false
-    preserveTimestamps: true
-    recursive:          true
-
+cfg = do =>
+  R =
+    data:
+      path:   PATH.resolve source_base, 'data'
+    source:
+      path:
+        base:   source_base
+        public: PATH.resolve source_base, 'public'
+    target:
+      path:
+        base:   target_base
+        public: PATH.resolve target_base, 'public'
+    cp:
+      errorOnExist:       true
+      dereference:        true
+      force:              false
+      preserveTimestamps: true
+      recursive:          true
+  R.symlink_glob  = PATH.join R.source.path.public, '**'
+  R.data.linklist = { path: ( PATH.resolve R.data.path, 'linklist.json' ), }
+  return R
 
 #===========================================================================================================
 create = ->
