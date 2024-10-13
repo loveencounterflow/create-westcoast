@@ -1,6 +1,6 @@
 {
   "name": "create-westcoast",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "create a westcoast application",
   "main": "lib/main.js",
   "scripts": {
