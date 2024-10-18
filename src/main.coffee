@@ -24,6 +24,55 @@ em                        = ( P... ) -> GUY.trm.reverse GUY.trm.bold P...
 FS                        = require 'node:fs'
 PATH                      = require 'node:path'
 
+{ execa
+  $
+  ExecaError }            = require 'execa'
+# { $: zx, cd: zx_cd }      = require 'zx'
+
+debug 'Ω___1', $
+debug 'Ω___2', await $"ls"
+# debug 'Ω___3', rpr d for d from await $"ls"
+info 'Ω___4', rpr d for await d from execa"ls"
+try
+  debug 'Ω___5', rpr d for await d from execa"ls nosuch"
+catch error
+  throw error unless error instanceof ExecaError
+  warn 'Ω___6', error.cwd, ( rpr error.command ), ( em error.code ? '' )
+  urge 'Ω___7', em error.originalMessage
+  help 'Ω___8', em error.shortMessage
+  warn 'Ω___9', em error.message
+
+create = ->
+  debug 'Ω__10', E.$
+  debug 'Ω__11', E.execa
+  debug 'Ω__12', await E.execa"ls"
+  # execa = await import( 'execa' )
+  # debug 'Ω__13', execa
+  # try debug 'Ω__14', d for d from await E"ls" catch error then warn 'Ω__15', error.message
+  # try debug 'Ω__16', d for d from await E.$"ls" catch error then warn 'Ω__17', error.message
+  # try debug 'Ω__18', d for d from await E.execa"ls" catch error then warn 'Ω__19', error.message
+  # try debug 'Ω__20', whatever = await E.execa"ls"
+  # try debug 'Ω__21', ( d for d from whatever.stdout )
+  return null
+return null
+
+# await create()
+
+# module.exports = { create, }
+
+# demo_zx = ->
+#   count = 0
+#   # for await line from execa"cat /usr/share/dict/ngerman"
+#   zx_cd '/home/flow/jzr/bing-image-creator-downloader'
+#   for await line from execa"python3.11 ./main.py"
+#     count++; break if count > 10000
+#     help 'Ω__22', rpr line
+#   return null
+
+# await demo_execa()
+
+warn "Ω__23 stop"
+return null
 
 #===========================================================================================================
 { version } = require '../package.json'
@@ -55,21 +104,21 @@ cfg = do =>
 
 #===========================================================================================================
 copy = ( source, target ) ->
-  info 'Ω___1', "#{source} -> #{target}"
+  info 'Ω__24', "#{source} -> #{target}"
   try
     FS.cpSync source, target, cfg.cp
   catch error
     throw error unless error.code is 'ERR_FS_CP_EEXIST'
-    warn 'Ω___2', em error.message
-    # process.exit 111
+    warn 'Ω__25', em error.message
+    process.exit 111
   return null
 
 #===========================================================================================================
 create = ->
-  urge 'Ω___3', "helo from create-westcoast v#{version}"
-  urge 'Ω___4', "cfg.source.path.base:    #{cfg.source.path.base}"
-  urge 'Ω___5', "cfg.source.path.public:  #{cfg.source.path.public}"
-  urge 'Ω___6', "cfg.target.path.base:    #{cfg.target.path.base}"
+  urge 'Ω__26', "helo from create-westcoast v#{version}"
+  urge 'Ω__27', "cfg.source.path.base:    #{cfg.source.path.base}"
+  urge 'Ω__28', "cfg.source.path.public:  #{cfg.source.path.public}"
+  urge 'Ω__29', "cfg.target.path.base:    #{cfg.target.path.base}"
   #.........................................................................................................
   copy cfg.source.path.public, cfg.target.path.public
   #.........................................................................................................
