@@ -27,38 +27,24 @@ PATH                      = require 'node:path'
 { execa
   $
   ExecaError }            = require 'execa'
-# { $: zx, cd: zx_cd }      = require 'zx'
 
-debug 'Ω___1', $
-debug 'Ω___2', await $"ls"
-# debug 'Ω___3', rpr d for d from await $"ls"
-info 'Ω___4', rpr d for await d from execa"ls"
-try
-  debug 'Ω___5', rpr d for await d from execa"ls nosuch"
-catch error
-  throw error unless error instanceof ExecaError
-  warn 'Ω___6', error.cwd, ( rpr error.command ), ( em error.code ? '' )
-  urge 'Ω___7', em error.originalMessage
-  help 'Ω___8', em error.shortMessage
-  warn 'Ω___9', em error.message
 
 create = ->
-  debug 'Ω__10', E.$
-  debug 'Ω__11', E.execa
-  debug 'Ω__12', await E.execa"ls"
-  # execa = await import( 'execa' )
-  # debug 'Ω__13', execa
-  # try debug 'Ω__14', d for d from await E"ls" catch error then warn 'Ω__15', error.message
-  # try debug 'Ω__16', d for d from await E.$"ls" catch error then warn 'Ω__17', error.message
-  # try debug 'Ω__18', d for d from await E.execa"ls" catch error then warn 'Ω__19', error.message
-  # try debug 'Ω__20', whatever = await E.execa"ls"
-  # try debug 'Ω__21', ( d for d from whatever.stdout )
+  debug 'Ω___1', $
+  debug 'Ω___2', await $"ls"
+  # debug 'Ω___3', rpr d for d from await $"ls"
+  info 'Ω___4', rpr d for await d from execa"ls"
+  try
+    debug 'Ω___5', rpr d for await d from execa"ls nosuch"
+  catch error
+    throw error unless error instanceof ExecaError
+    warn 'Ω___6', error.cwd, ( rpr error.command ), ( em error.code ? '' )
+    urge 'Ω___7', em error.originalMessage
+    help 'Ω___8', em error.shortMessage
+    warn 'Ω___9', em error.message
   return null
-return null
 
-# await create()
-
-# module.exports = { create, }
+module.exports = { create, }
 
 # demo_zx = ->
 #   count = 0
