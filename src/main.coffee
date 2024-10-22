@@ -4,15 +4,6 @@
 
 #===========================================================================================================
 GUY                       = require 'guy'
-{ alert
-  debug
-  help
-  info
-  plain
-  praise
-  urge
-  warn
-  whisper }               = GUY.trm.get_loggers 'create-westcoast'
 { rpr
   inspect
   echo
@@ -26,7 +17,18 @@ PATH                      = require 'node:path'
 CLK                       = require '@clack/prompts'
 { get_types }             = require './types'
 #...........................................................................................................
-log = ( P... ) -> echo ( GUY.trm.grey '│ ' ), P...
+log       = ( P... ) -> echo ( GUY.trm.grey '│ ' ), ( GUY.trm.lime P... )
+warn      = ( P... ) -> echo ( GUY.trm.grey '│ ' ), ( GUY.trm.red  P... )
+ask       = ( P... ) -> GUY.trm.gold P...
+
+#-----------------------------------------------------------------------------------------------------------
+get_filetype = ( path ) ->
+  try ( stats = FS.statSync path ) catch error
+    return 'none' if error.code is 'ENOENT'
+    throw error
+  return 'folder' if stats.isDirectory()
+  return 'file'   if stats.isFile()
+  return 'other'
 
 
 #===========================================================================================================
@@ -82,16 +84,29 @@ class Create extends Stepper
   #---------------------------------------------------------------------------------------------------------
   create_app_folder: ->
     cfg =
-      message:      "In which folder should the WestCoast app be created?"
+      message:      ask "In which folder should the WestCoast app be created?"
       placeholder:  "folder name"
       initialValue: "my-westcoast-app"
       validate:     ( value ) ->
         # debug 'Ω___5', rpr value
         return "Value is required!" if value.length is 0
         return null
-    app_base_path = await CLK.text cfg
-    app_base_path = PATH.resolve process.cwd(), app_base_path
-    log GUY.trm.blue "app will be created in #{rpr app_base_path}"
+    loop
+      app_base_path = await CLK.text cfg
+      app_base_path = PATH.resolve process.cwd(), app_base_path
+      switch get_filetype app_base_path
+        when 'folder'
+          warn app_base_path
+          warn "is an existing folder"
+          break if await CLK.confirm { message: ask "do you want to create the app in the existing folder?", }
+          continue
+        when 'file'
+          warn app_base_path
+          warn "is an existing file"
+          help "please choose another name"
+          continue
+      break
+    log "app will be created in #{app_base_path}"
     return null
 
   #---------------------------------------------------------------------------------------------------------
