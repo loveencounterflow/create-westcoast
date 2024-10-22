@@ -15,3 +15,17 @@
 
 # Create-WestCoast
 
+## Steps
+
+* ask for path to folder
+* if folder exists, ask if OK to install there
+* `cd` to folder
+* ask whether to `git init` unless already is a repo
+* with the user's preferred package manager:
+  * initialize
+  * install `westcoast`
+* copy `public` folder
+* add a `server` module
+
+
+

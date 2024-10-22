@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "",
+  "sourceRoot": "",
+  "sources": [
+    "../src/types.coffee"
+  ],
+  "names": [],
+  "mappings": "AAEA;EAAA;AAAA,MAAA,GAAA,EAAA,SAAA,EAAA,KAAA,EAAA,KAAA;;;EAGA,GAAA,GAA4B,OAAA,CAAQ,KAAR;;EAC5B,CAAA,CAAE,KAAF,CAAA,GAA4B,GAAG,CAAC,GAAG,CAAC,WAAR,CAAoB,wBAApB,CAA5B,EAJA;;;EAMA,CAAA,CAAE,SAAF,CAAA,GAA4B,OAAA,CAAQ,WAAR,CAA5B;;EACA,KAAA,GAA4B,KAP5B;;;EAUA,IAAC,CAAA,SAAD,GAAa,QAAA,CAAA,CAAA;IACX,IAAO,aAAP;MACE,KAAA,GAAQ,IAAI,SAAJ,CAAA,EAAZ;;MAEI,KAAO,OAAO,CAAC,GAAR,CAAY,KAAK,CAAC,YAAlB,EAAgC,OAAhC,CAAP;QACE,KAAK,CAAC,OAAN,CAAc;UAAA,KAAA,EAAO,QAAA,CAAE,CAAF,CAAA;AAC3B,gBAAA;AAAQ,mBAAO,CAAE,CAAE,MAAM,CAAA,SAAE,CAAA,QAAQ,CAAC,IAAjB,CAAsB,CAAtB,CAAF,CAAA,KAA+B,mBAAjC,CAAA,0EAC6C,CAAE,kBAApD,KAAgE;UAF/C;QAAP,CAAd,EADF;OAHF;KAAF;;AAQE,WAAO;EATI;AAVb",
+  "sourcesContent": [
+    "\n\n'use strict'\n\n#===========================================================================================================\nGUY                       = require 'guy'\n{ debug }                 = GUY.trm.get_loggers 'create-westcoast/types'\n#...........................................................................................................\n{ Intertype }             = require 'intertype'\ntypes                     = null\n\n#===========================================================================================================\n@get_types = ->\n  unless types?\n    types = new Intertype()\n    #.......................................................................................................\n    unless Reflect.has types.declarations, 'class'\n      types.declare class: ( x ) ->\n        return ( ( Object::toString.call x ) is '[object Function]' ) and \\\n          ( Object.getOwnPropertyDescriptor x, 'prototype' )?.writable is false\n  #.........................................................................................................\n  return types\n\n  "
+  ]
+}

@@ -16,9 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
     "execa": "^9.4.1",
     "glob": "^11.0.0",
     "guy": "^14.0.0",
+    "intertype": "^203.2.0",
     "koa": "^2.15.3"
   }
 }
