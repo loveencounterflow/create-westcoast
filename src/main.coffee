@@ -19,12 +19,14 @@ CLK                       = require '@clack/prompts'
 #...........................................................................................................
 log       = ( P... ) -> echo ( GUY.trm.grey '│ ' ), ( GUY.trm.lime P... )
 warn      = ( P... ) -> echo ( GUY.trm.grey '│ ' ), ( GUY.trm.red  P... )
+help      = ( P... ) -> echo ( GUY.trm.grey '│ ' ), ( GUY.trm.gold P... )
 ask       = ( P... ) -> GUY.trm.gold P...
 
 #-----------------------------------------------------------------------------------------------------------
 get_filetype = ( path ) ->
   try ( stats = FS.statSync path ) catch error
-    return 'none' if error.code is 'ENOENT'
+    return 'none'   if error.code is 'ENOENT'
+    return 'other'  if error.code is 'ELOOP'
     throw error
   return 'folder' if stats.isDirectory()
   return 'file'   if stats.isFile()
@@ -53,7 +55,7 @@ class Stepper
         continue if key.startsWith '_'
         for method from @_walk_values object[ key ]
           continue unless ( @_types.isa.function method ) or ( @_types.isa.asyncfunction method )
-          # whisper 'Ω___1', key
+          echo 'Ω___1', GUY.trm.reverse key
           await method.call @
     return null
 
@@ -77,8 +79,16 @@ class Stepper
 class Create extends Stepper
 
   #---------------------------------------------------------------------------------------------------------
+  constructor: ->
+    super()
+    ### TAINT use types ###
+    @cfg = {}
+    return undefined
+
+  #---------------------------------------------------------------------------------------------------------
   intro: ->
     CLK.intro "create-westcoast"
+    @cfg.initial_cwd = process.cwd()
     return null
 
   #---------------------------------------------------------------------------------------------------------
@@ -92,25 +102,39 @@ class Create extends Stepper
         return "Value is required!" if value.length is 0
         return null
     loop
-      app_base_path = await CLK.text cfg
-      app_base_path = PATH.resolve process.cwd(), app_base_path
-      switch get_filetype app_base_path
+      @cfg.app_base_path = PATH.resolve process.cwd(), await CLK.text cfg
+      echo 'Ω___3', "filetype:", get_filetype @cfg.app_base_path
+      switch get_filetype @cfg.app_base_path
         when 'folder'
-          warn app_base_path
+          warn @cfg.app_base_path
           warn "is an existing folder"
           break if await CLK.confirm { message: ask "do you want to create the app in the existing folder?", }
           continue
         when 'file'
-          warn app_base_path
+          warn @cfg.app_base_path
           warn "is an existing file"
           help "please choose another name"
           continue
+        when 'other'
+          warn @cfg.app_base_path
+          warn "is an existing file system object, but not a folder"
+          help "please choose another name"
+          continue
+        when 'none'
+          help "creating folder #{@cfg.app_base_path}"
+          FS.mkdirSync @cfg.app_base_path
       break
-    log "app will be created in #{app_base_path}"
+    log "app will be created in #{@cfg.app_base_path}"
+    return null
+
+  #---------------------------------------------------------------------------------------------------------
+  cd_to_app_base_path: ->
+    process.chdir @cfg.app_base_path
     return null
 
   #---------------------------------------------------------------------------------------------------------
   outro: ->
+    process.chdir @cfg.initial_cwd ### not strictly needed ###
     CLK.outro "create-westcoast"
     return null
 
