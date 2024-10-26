@@ -88,7 +88,7 @@ class Create extends Stepper
       placeholder:  "folder name"
       initialValue: "my-westcoast-app"
       validate:     ( value ) ->
-        # debug 'Ω___5', rpr value
+        # debug 'Ω___2', rpr value
         return "Value is required!" if value.length is 0
         return null
     loop
@@ -118,18 +118,18 @@ class Create extends Stepper
 await ( new Create() )._run()
 
 create = ->
-  debug 'Ω___3', $
-  debug 'Ω___4', await $"ls"
-  # debug 'Ω___5', rpr d for d from await $"ls"
-  info 'Ω___6', rpr d for await d from execa"ls"
+  debug 'Ω___4', $
+  debug 'Ω___5', await $"ls"
+  # debug 'Ω___6', rpr d for d from await $"ls"
+  info 'Ω___7', rpr d for await d from execa"ls"
   try
-    debug 'Ω___7', rpr d for await d from execa"ls nosuch"
+    debug 'Ω___8', rpr d for await d from execa"ls nosuch"
   catch error
     throw error unless error instanceof ExecaError
-    warn 'Ω___8', error.cwd, ( rpr error.command ), ( em error.code ? '' )
-    urge 'Ω___9', em error.originalMessage
-    help 'Ω__10', em error.shortMessage
-    warn 'Ω__11', em error.message
+    warn 'Ω___9', error.cwd, ( rpr error.command ), ( em error.code ? '' )
+    urge 'Ω__10', em error.originalMessage
+    help 'Ω__11', em error.shortMessage
+    warn 'Ω__12', em error.message
   return null
 
 module.exports = { create, }
@@ -140,12 +140,12 @@ module.exports = { create, }
 #   zx_cd '/home/flow/jzr/bing-image-creator-downloader'
 #   for await line from execa"python3.11 ./main.py"
 #     count++; break if count > 10000
-#     help 'Ω__12', rpr line
+#     help 'Ω__13', rpr line
 #   return null
 
 # await demo_execa()
 
-warn "Ω__13 stop"
+warn "Ω__14 stop"
 return null
 
 #===========================================================================================================
@@ -178,21 +178,21 @@ cfg = do =>
 
 #===========================================================================================================
 copy = ( source, target ) ->
-  info 'Ω__14', "#{source} -> #{target}"
+  info 'Ω__15', "#{source} -> #{target}"
   try
     FS.cpSync source, target, cfg.cp
   catch error
     throw error unless error.code is 'ERR_FS_CP_EEXIST'
-    warn 'Ω__15', em error.message
+    warn 'Ω__16', em error.message
     process.exit 111
   return null
 
 #===========================================================================================================
 create = ->
-  urge 'Ω__16', "helo from create-westcoast v#{version}"
-  urge 'Ω__17', "cfg.source.path.base:    #{cfg.source.path.base}"
-  urge 'Ω__18', "cfg.source.path.public:  #{cfg.source.path.public}"
-  urge 'Ω__19', "cfg.target.path.base:    #{cfg.target.path.base}"
+  urge 'Ω__17', "helo from create-westcoast v#{version}"
+  urge 'Ω__18', "cfg.source.path.base:    #{cfg.source.path.base}"
+  urge 'Ω__19', "cfg.source.path.public:  #{cfg.source.path.public}"
+  urge 'Ω__20', "cfg.target.path.base:    #{cfg.target.path.base}"
   #.........................................................................................................
   copy cfg.source.path.public, cfg.target.path.public
   #.........................................................................................................
