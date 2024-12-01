@@ -22,15 +22,6 @@ warn      = ( P... ) -> echo ( GUY.trm.grey '│ ' ), ( GUY.trm.red  P... )
 help      = ( P... ) -> echo ( GUY.trm.grey '│ ' ), ( GUY.trm.gold P... )
 ask       = ( P... ) -> GUY.trm.gold P...
 
-#-----------------------------------------------------------------------------------------------------------
-get_filetype = ( path ) ->
-  try ( stats = FS.statSync path ) catch error
-    return 'none'   if error.code is 'ENOENT'
-    return 'other'  if error.code is 'ELOOP'
-    throw error
-  return 'folder' if stats.isDirectory()
-  return 'file'   if stats.isFile()
-  return 'other'
 
 
 #===========================================================================================================
@@ -103,9 +94,27 @@ class Create extends Stepper
         return null
     loop
       @cfg.app_base_path = PATH.resolve process.cwd(), await CLK.text cfg
-      echo 'Ω___3', "filetype:", get_filetype @cfg.app_base_path
-      switch get_filetype @cfg.app_base_path
+      echo 'Ω___3', "filetype:", FS.get_descriptor @cfg.app_base_path
+      dsc = FS.get_descriptor @cfg.app_base_path
+      #.....................................................................................................
+      if dsc.is_loop
+        warn @cfg.app_base_path
+        warn "is a looped symlink leading to nowhere; refusing to overwrite"
+        help "please choose another name"
+        continue
+      #.....................................................................................................
+      switch dsc.type
+        when null
+          help "creating folder #{@cfg.app_base_path}"
+          FS.mkdirSync @cfg.app_base_path
+          break
+        when 'link'
+          warn @cfg.app_base_path
+          warn "is a dangling symlink; refusing to overwrite"
+          help "please choose another name"
+          continue
         when 'folder'
+          ### TAINT distinguish between empty and non-empty folder ###
           warn @cfg.app_base_path
           warn "is an existing folder"
           break if await CLK.confirm { message: ask "do you want to create the app in the existing folder?", }
@@ -115,15 +124,11 @@ class Create extends Stepper
           warn "is an existing file"
           help "please choose another name"
           continue
-        when 'other'
+        else
           warn @cfg.app_base_path
-          warn "is an existing file system object, but not a folder"
+          warn "is an existing #{dsc.type} device;"
           help "please choose another name"
           continue
-        when 'none'
-          help "creating folder #{@cfg.app_base_path}"
-          FS.mkdirSync @cfg.app_base_path
-      break
     log "app will be created in #{@cfg.app_base_path}"
     return null
 
